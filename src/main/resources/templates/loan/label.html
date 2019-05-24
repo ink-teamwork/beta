@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Dashboard</title>
+    <head th:replace="include/head"/>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="include/header"/>
+    <aside th:replace="include/sidebar"/>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                Dashboard
+                <small>Control panel</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <button class="btn btn-success" id="add-btn">添加标签</button>
+                        </div>
+                        <div class="box-body">
+                            <table border="0" cellpadding="0" cellspacing="0" id="example" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <th>位置</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer th:replace="include/footer"/>
+</div>
+<div class="modal fade" id="modal-save">
+    <input type="hidden" name="id"/>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新增标签</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">标签名称</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="标签名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">标签位置</label>
+
+                            <div class="col-sm-10">
+                                <input type="number" name="priority" class="form-control" id="inputPassword3" placeholder="标签位置">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script>
+    var dataTable = $('#example').DataTable({
+        sort: false,
+        lengthChange: false,
+        serverSide: true,
+        processing: true,
+        info: true,
+        pagingType: "full_numbers",
+        language: chinese,
+        pageLength: 10,
+        autoWidth: false,
+        dom: 'rtlip',
+        ajax: {
+            type: "POST",
+            url: "/label/list",
+        },
+        columnDefs: [{
+            targets: 0,
+            data: function (data, type, set, meta) {
+                return data.name;
+            }
+        }, {
+            targets: 1,
+            data: function (data, type, set, meta) {
+                return data.priority;
+            }
+        }, {
+            targets: 2,
+            data: function (data, type, set, meta) {
+                return `<a>修改</a>|<a>删除<a>`;
+            }
+        }],
+    });
+    dataTable.on('xhr', function (e, settings, json) {
+        if (json.recordsTotal == 0) {
+            $("#table_wrapper").hide();
+            $("#example_paginate").hide();
+        } else {
+            $("#table_wrapper").show();
+            $("#example_paginate").show();
+        }
+    });
+    $("#add-btn").on("click", () => {
+        $('input[name="id"]').val(null);
+       $("#modal-save").modal("show");
+    });
+    $(".update-btn").on("click", () => {
+        $('input[name="id"]').val($(this).data("id"));
+        $("#modal-save").modal("show");
+    });
+    $("#save").on("click", () => {
+        const id = $('input[name="id"]').val();
+        const name = $("input[name='name']").val();
+        const priority = $("input[name='priority']").val();
+        $.post("/label/save", {id, name, priority}, (res) => {
+            if (res.success) {
+                $("#modal-save").modal("hide");
+            } else {
+            }
+        });
+    });
+</script>
+</html>

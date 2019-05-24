@@ -31,4 +31,19 @@ public class Result implements Serializable {
         return Result.builder().success(bool).msg(msg).data(data).build();
     }
 
+    private int draw;
+
+    private long recordsTotal;
+
+    private long recordsFiltered;
+
+    public static Result page(int draw, long recordsTotal, long recordsFiltered, Object data){
+        return Result.builder()
+                .draw(draw)
+                .recordsTotal(recordsTotal)
+                .recordsFiltered(recordsFiltered)
+                .data(data)
+                .build();
+    }
+
 }

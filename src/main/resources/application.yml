@@ -3,9 +3,11 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://localhost:8889/beta
   jpa:
     hibernate:
       ddl-auto: update
   thymeleaf:
     cache: false
+server:
+  port: 8081

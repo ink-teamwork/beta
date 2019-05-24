@@ -16,18 +16,15 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Admin implements Serializable {
+public class App implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String username;
-
-    private String password;
-
-    private String name;
-
+    private String type;
+    private String title;
+    private String param;
     private int status;
+    private int priority;
 
 }

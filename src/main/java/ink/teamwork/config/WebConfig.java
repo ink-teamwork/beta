@@ -26,13 +26,16 @@ public class WebConfig implements WebMvcConfigurer {
     class LoginInterceptor implements HandlerInterceptor {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            response.sendRedirect("/admin/login");
-            return false;
+            Object obj = request.getSession().getAttribute("admin");
+            if (obj == null){
+                response.sendRedirect("/admin/login");
+                return false;
+            }
+            return true;
         }
 
         @Override
         public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-            System.out.println(123);
         }
 
         @Override
