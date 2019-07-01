@@ -2,16 +2,17 @@ package ink.teamwork.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@SpringBootConfiguration
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -19,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/admin/**").excludePathPatterns("/admin/login", "*.js", "*.css");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/admin/**").excludePathPatterns("/admin/login", "*.js", "*.css", "/img/**");
     }
 
     @Component
@@ -43,4 +44,19 @@ public class WebConfig implements WebMvcConfigurer {
 
         }
     }
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseSuffixPatternMatch(false).setUseTrailingSlashMatch(true);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://192.168.3.124:8000")
+                .allowedMethods("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH")
+                .allowCredentials(true)
+                .maxAge(3600);
+    }
+
 }

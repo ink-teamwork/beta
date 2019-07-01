@@ -1,8 +1,8 @@
 package ink.teamwork.repository;
 
-import ink.teamwork.entity.Loan;
+import ink.teamwork.entity.Ad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface LoanRepository extends JpaRepository<Loan, Long>, JpaSpecificationExecutor<Loan> {
+public interface AdRepository extends JpaRepository<Ad, Long>, JpaSpecificationExecutor<Ad> {
 }

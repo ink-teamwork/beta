@@ -1,5 +1,6 @@
 package ink.teamwork.model;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
 import lombok.Data;
 
@@ -45,5 +46,17 @@ public class Result implements Serializable {
                 .data(data)
                 .build();
     }
+
+    public static JSONObject page(int currentPage, int pageSize, long total, Object list){
+        JSONObject result = new JSONObject();
+        JSONObject pagination = new JSONObject();
+        result.put("list", list);
+        pagination.put("current", currentPage);
+        pagination.put("pageSize", pageSize);
+        pagination.put("total", total);
+        result.put("pagination", pagination);
+        return result;
+    }
+
 
 }

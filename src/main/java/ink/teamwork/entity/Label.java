@@ -22,6 +22,6 @@ public class Label implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int priority;
+    private int sort;
 
 }

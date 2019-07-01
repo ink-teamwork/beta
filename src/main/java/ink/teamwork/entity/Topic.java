@@ -16,15 +16,22 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class App implements Serializable {
+public class Topic implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
+
     private String title;
-    private String params;
-    private int status;
+
     private int sort;
+
+    private String pic;
+
+    private String bg;
+
+    private String loans;
+
+    private String summary;
 
 }

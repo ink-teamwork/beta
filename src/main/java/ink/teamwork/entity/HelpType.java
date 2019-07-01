@@ -16,15 +16,16 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class App implements Serializable {
+public class HelpType implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
-    private String title;
-    private String params;
-    private int status;
+
+    private String name;
+
     private int sort;
+
+    private String icon;
 
 }

@@ -10,21 +10,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class App implements Serializable {
+public class HelpContent implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
-    private String title;
-    private String params;
-    private int status;
-    private int sort;
 
+    private String title;
+
+    private Long typeId;
+
+    private Date releaseTime;
+
+    private String content;
+
+    private Date createdTime;
 }

@@ -1,5 +1,6 @@
 package ink.teamwork.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,15 +17,24 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class App implements Serializable {
+public class Ad implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
+
     private String title;
-    private String params;
-    private int status;
+
     private int sort;
+
+    private String pic;
+
+    private String params;
+
+    private String type;
+
+    private String link;
+
+    private String summary;
 
 }

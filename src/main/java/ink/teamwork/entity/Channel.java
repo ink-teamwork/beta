@@ -16,15 +16,24 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class App implements Serializable {
+public class Channel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
-    private String title;
-    private String params;
+
+    private String name;
+
+    private String code;
+
     private int status;
-    private int sort;
+
+    private String backgroundUrl;
+
+    private String popularizeUrl;
+
+    private String password;
+
+    private double registerPrice;
 
 }
